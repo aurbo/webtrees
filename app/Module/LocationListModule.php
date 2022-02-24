@@ -120,7 +120,7 @@ class LocationListModule extends AbstractModule implements ModuleListInterface, 
     {
         $tree = Validator::attributes($request)->tree();
 
-        return redirect($this->listUrl($tree, $request->getQueryParams()));
+        return Registry::responseFactory()->redirectUrl($this->listUrl($tree, $request->getQueryParams()));
     }
 
     /**

@@ -219,12 +219,12 @@ class InteractiveTreeModule extends AbstractModule implements ModuleChartInterfa
 
         $params = (array) $request->getParsedBody();
 
-        return redirect(route('module', [
+        return Registry::responseFactory()->redirect('module', [
             'module' => $this->name(),
             'action' => 'Chart',
             'tree'   => $tree->name(),
             'xref'   => $params['xref'] ?? '',
-        ]));
+        ]);
     }
 
     /**
@@ -244,7 +244,7 @@ class InteractiveTreeModule extends AbstractModule implements ModuleChartInterfa
         $instance = $request->getQueryParams()['instance'];
         $treeview = new TreeView($instance);
 
-        return response($treeview->getDetails($individual));
+        return Registry::responseFactory()->response($treeview->getDetails($individual));
     }
 
     /**
@@ -260,6 +260,6 @@ class InteractiveTreeModule extends AbstractModule implements ModuleChartInterfa
         $instance = $request->getQueryParams()['instance'];
         $treeview = new TreeView($instance);
 
-        return response($treeview->getIndividuals($tree, $q));
+        return Registry::responseFactory()->response($treeview->getIndividuals($tree, $q));
     }
 }

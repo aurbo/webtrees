@@ -80,7 +80,7 @@ class RedirectIndiListPhp implements RequestHandlerInterface
                 'surname'             => $surname,
             ]);
 
-            return Registry::responseFactory()->redirectUrl($url, StatusCodeInterface::STATUS_MOVED_PERMANENTLY);
+            return Registry::responseFactory()->redirectUrl($module->listUrl($tree, $params), StatusCodeInterface::STATUS_MOVED_PERMANENTLY);
         }
 
         throw new HttpNotFoundException();

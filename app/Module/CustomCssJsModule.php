@@ -21,6 +21,7 @@ namespace Fisharebest\Webtrees\Module;
 
 use Fisharebest\Webtrees\FlashMessages;
 use Fisharebest\Webtrees\I18N;
+use Fisharebest\Webtrees\Registry;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -99,7 +100,7 @@ class CustomCssJsModule extends AbstractModule implements ModuleConfigInterface,
         $message = I18N::translate('The preferences for the module “%s” have been updated.', $this->title());
         FlashMessages::addMessage($message, 'success');
 
-        return redirect($this->getConfigLink());
+        return Registry::responseFactory()->redirectUrl($this->getConfigLink());
     }
 
     /**

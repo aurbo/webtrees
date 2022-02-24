@@ -56,7 +56,7 @@ class CreateMediaObjectModal implements RequestHandlerInterface
         $data_filesystem = Registry::filesystem()->data();
         $unused_files    = $this->media_file_service->unusedFiles($tree, $data_filesystem);
 
-        return response(view('modals/create-media-object', [
+        return Registry::responseFactory()->response(view('modals/create-media-object', [
             'max_upload_size' => $max_upload_size,
             'media_types'     => $media_types,
             'tree'            => $tree,

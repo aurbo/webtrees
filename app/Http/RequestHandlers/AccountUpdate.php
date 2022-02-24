@@ -22,6 +22,7 @@ namespace Fisharebest\Webtrees\Http\RequestHandlers;
 use Fisharebest\Webtrees\Contracts\UserInterface;
 use Fisharebest\Webtrees\FlashMessages;
 use Fisharebest\Webtrees\I18N;
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Services\UserService;
 use Fisharebest\Webtrees\Session;
 use Fisharebest\Webtrees\Tree;
@@ -30,9 +31,6 @@ use Fisharebest\Webtrees\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-
-use function redirect;
-use function route;
 
 /**
  * Edit user account details.
@@ -113,6 +111,6 @@ class AccountUpdate implements RequestHandlerInterface
 
         FlashMessages::addMessage(I18N::translate('The details for “%s” have been updated.', e($user->userName())), 'success');
 
-        return redirect(route(HomePage::class, ['tree' => $tree instanceof Tree ? $tree->name() : null]));
+        return Registry::responseFactory()->redirect(HomePage::class, ['tree' => $tree instanceof Tree ? $tree->name() : null]);
     }
 }

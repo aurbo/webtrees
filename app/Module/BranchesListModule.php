@@ -49,7 +49,6 @@ use function is_int;
 use function key;
 use function log;
 use function next;
-use function redirect;
 use function route;
 use function strip_tags;
 use function stripos;
@@ -167,7 +166,7 @@ class BranchesListModule extends AbstractModule implements ModuleListInterface, 
     {
         $tree = Validator::attributes($request)->tree();
 
-        return redirect($this->listUrl($tree, $request->getQueryParams()));
+        return Registry::responseFactory()->redirectUrl($this->listUrl($tree, $request->getQueryParams()));
     }
 
     /**
@@ -184,7 +183,7 @@ class BranchesListModule extends AbstractModule implements ModuleListInterface, 
 
         // Convert POST requests into GET requests for pretty URLs.
         if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
-            return redirect($this->listUrl($tree, (array) $request->getParsedBody()));
+            return Registry::responseFactory()->redirectUrl($this->listUrl($tree, (array) $request->getParsedBody()));
         }
 
         $surname = (string) $request->getAttribute('surname');

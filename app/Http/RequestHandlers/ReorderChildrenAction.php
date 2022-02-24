@@ -31,7 +31,6 @@ use function array_search;
 use function assert;
 use function implode;
 use function is_array;
-use function redirect;
 use function uksort;
 
 /**
@@ -77,6 +76,6 @@ class ReorderChildrenAction implements RequestHandlerInterface
 
         $family->updateRecord($gedcom, false);
 
-        return redirect($family->url());
+        return Registry::responseFactory()->redirectUrl($family->url());
     }
 }

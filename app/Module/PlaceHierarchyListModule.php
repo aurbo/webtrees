@@ -44,7 +44,6 @@ use function array_pop;
 use function array_reverse;
 use function ceil;
 use function count;
-use function redirect;
 use function route;
 use function view;
 
@@ -154,7 +153,7 @@ class PlaceHierarchyListModule extends AbstractModule implements ModuleListInter
     {
         $tree = Validator::attributes($request)->tree();
 
-        return redirect($this->listUrl($tree, $request->getQueryParams()));
+        return Registry::responseFactory()->redirectUrl($this->listUrl($tree, $request->getQueryParams()));
     }
 
     /**
@@ -188,7 +187,7 @@ class PlaceHierarchyListModule extends AbstractModule implements ModuleListInter
 
         // Request for a non-existent place?
         if ($place_id !== $place->id()) {
-            return redirect($place->url());
+            return Registry::responseFactory()->redirectUrl($place->url());
         }
 
         $map_providers = $this->module_service->findByInterface(ModuleMapProviderInterface::class);

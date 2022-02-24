@@ -22,13 +22,13 @@ namespace Fisharebest\Webtrees\Http\RequestHandlers;
 use Fisharebest\Webtrees\Auth;
 use Fisharebest\Webtrees\Date;
 use Fisharebest\Webtrees\I18N;
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Services\LocalizationService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 use function array_keys;
-use function response;
 use function strip_tags;
 use function view;
 
@@ -300,7 +300,7 @@ class HelpText implements RequestHandlerInterface
             'text'  => $text,
         ]);
 
-        return response($html);
+        return Registry::responseFactory()->response($html);
     }
 
     /**

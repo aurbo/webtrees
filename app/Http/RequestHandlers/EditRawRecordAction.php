@@ -86,6 +86,6 @@ class EditRawRecordAction implements RequestHandlerInterface
 
         $record->updateRecord($gedcom, false);
 
-        return redirect($record->url());
+        return Registry::responseFactory()->redirectUrl($record->url());
     }
 }

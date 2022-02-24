@@ -20,14 +20,12 @@ declare(strict_types=1);
 namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
 use Fisharebest\Webtrees\Module\ModuleBlockInterface;
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Services\HomePageService;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-
-use function redirect;
-use function route;
 
 /**
  * Save the updated default blocks for new users.
@@ -58,6 +56,6 @@ class UserPageDefaultUpdate implements RequestHandlerInterface
 
         $this->home_page_service->updateUserBlocks(-1, $main_blocks, $side_blocks);
 
-        return redirect(route(ControlPanel::class));
+        return Registry::responseFactory()->redirect(ControlPanel::class);
     }
 }

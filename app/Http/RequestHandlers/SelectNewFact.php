@@ -19,12 +19,11 @@ declare(strict_types=1);
 
 namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-
-use function redirect;
 
 /**
  * Select a new fact to add.
@@ -43,10 +42,10 @@ class SelectNewFact implements RequestHandlerInterface
         $params = (array) $request->getParsedBody();
         $fact   = $params['fact'];
 
-        return redirect(route(AddNewFact::class, [
+        return Registry::responseFactory()->redirect(AddNewFact::class, [
             'tree' => $tree->name(),
             'xref' => $xref,
             'fact' => $fact,
-        ]));
+        ]);
     }
 }

@@ -27,7 +27,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 use function preg_replace;
-use function redirect;
 use function trim;
 
 /**
@@ -64,6 +63,6 @@ class EditRawFactAction implements RequestHandlerInterface
 
         $url = Validator::parsedBody($request)->isLocalUrl()->string('url', $record->url());
 
-        return redirect($url);
+        return Registry::responseFactory()->redirectUrl($url);
     }
 }

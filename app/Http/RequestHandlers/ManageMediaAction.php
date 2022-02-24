@@ -19,12 +19,10 @@ declare(strict_types=1);
 
 namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
+use Fisharebest\Webtrees\Registry;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-
-use function redirect;
-use function route;
 
 /**
  * Manage media from the control panel.
@@ -40,10 +38,10 @@ class ManageMediaAction implements RequestHandlerInterface
     {
         $params = (array) $request->getParsedBody();
 
-        return redirect(route(ManageMediaPage::class, [
+        return Registry::responseFactory()->redirect(ManageMediaPage::class, [
             'files'        => $params['files'],
             'media_folder' => $params['media_folder'] ?? '',
             'subfolders'   => $params['subfolders'] ?? 'include',
-        ]));
+        ]);
     }
 }

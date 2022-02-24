@@ -329,6 +329,6 @@ class TimelineChartModule extends AbstractModule implements ModuleChartInterface
             'topyear'     => $topyear,
         ]);
 
-        return response($html);
+        return Registry::responseFactory()->response($html);
     }
 }

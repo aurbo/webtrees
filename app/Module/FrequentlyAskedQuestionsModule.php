@@ -22,6 +22,7 @@ namespace Fisharebest\Webtrees\Module;
 use Fisharebest\Webtrees\Http\RequestHandlers\ControlPanel;
 use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\Menu;
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Services\HtmlService;
 use Fisharebest\Webtrees\Services\TreeService;
 use Fisharebest\Webtrees\Tree;
@@ -32,7 +33,6 @@ use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-use function redirect;
 use function route;
 
 /**
@@ -126,10 +126,10 @@ class FrequentlyAskedQuestionsModule extends AbstractModule implements ModuleCon
         if (!$tree instanceof Tree) {
             $tree = $this->tree_service->all()->first();
             if ($tree instanceof Tree) {
-                return redirect(route('module', ['module' => $this->name(), 'action' => 'Admin', 'tree' => $tree->name()]));
+                return Registry::responseFactory()->redirect('module', ['module' => $this->name(), 'action' => 'Admin', 'tree' => $tree->name()]);
             }
 
-            return redirect(route(ControlPanel::class));
+            return Registry::responseFactory()->redirect(ControlPanel::class);
         }
 
         $faqs = $this->faqsForTree($tree);
@@ -175,11 +175,11 @@ class FrequentlyAskedQuestionsModule extends AbstractModule implements ModuleCon
     {
         $params = (array) $request->getParsedBody();
 
-        return redirect(route('module', [
+        return Registry::responseFactory()->redirect('module', [
             'module' => $this->name(),
             'action' => 'Admin',
             'tree'   => $params['tree'] ?? '',
-        ]));
+        ]);
     }
 
     /**
@@ -195,12 +195,10 @@ class FrequentlyAskedQuestionsModule extends AbstractModule implements ModuleCon
 
         DB::table('block')->where('block_id', '=', $block_id)->delete();
 
-        $url = route('module', [
+        return Registry::responseFactory()->redirect('module', [
             'module' => $this->name(),
             'action' => 'Admin',
         ]);
-
-        return redirect($url);
     }
 
     /**
@@ -236,7 +234,7 @@ class FrequentlyAskedQuestionsModule extends AbstractModule implements ModuleCon
                 ]);
         }
 
-        return response();
+        return Registry::responseFactory()->response();
     }
 
     /**
@@ -272,7 +270,7 @@ class FrequentlyAskedQuestionsModule extends AbstractModule implements ModuleCon
                 ]);
         }
 
-        return response();
+        return Registry::responseFactory()->response();
     }
 
     /**
@@ -373,12 +371,10 @@ class FrequentlyAskedQuestionsModule extends AbstractModule implements ModuleCon
         $this->setBlockSetting($block_id, 'header', $header);
         $this->setBlockSetting($block_id, 'languages', implode(',', $languages));
 
-        $url = route('module', [
+        return Registry::responseFactory()->redirect('module', [
             'module' => $this->name(),
             'action' => 'Admin',
         ]);
-
-        return redirect($url);
     }
 
     /**

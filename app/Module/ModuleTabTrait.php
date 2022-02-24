@@ -29,7 +29,6 @@ use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-use function response;
 use function view;
 
 /**
@@ -144,6 +143,6 @@ trait ModuleTabTrait
             'content' => $this->getTabContent($record),
         ]);
 
-        return response($layout);
+        return Registry::responseFactory()->response($layout);
     }
 }

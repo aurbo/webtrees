@@ -43,7 +43,6 @@ use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Services\ModuleService;
 use Fisharebest\Webtrees\Tree;
 use Fisharebest\Webtrees\Validator;
-use PhpParser\Node\Expr\AssignOp\Mod;
 use Psr\Http\Message\ServerRequestInterface;
 
 use function app;

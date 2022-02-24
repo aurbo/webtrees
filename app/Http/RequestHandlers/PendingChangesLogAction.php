@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
+use Fisharebest\Webtrees\Registry;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -37,7 +38,7 @@ class PendingChangesLogAction implements RequestHandlerInterface
     {
         $params = (array) $request->getParsedBody();
 
-        return redirect(route(PendingChangesLogPage::class, [
+        return Registry::responseFactory()->redirect(PendingChangesLogPage::class, [
             'tree'     => $params['tree'],
             'from'     => $params['from'] ?? '',
             'to'       => $params['to'] ?? '',
@@ -46,6 +47,6 @@ class PendingChangesLogAction implements RequestHandlerInterface
             'newged'   => $params['newged'] ?? '',
             'xref'     => $params['xref'] ?? '',
             'username' => $params['username'] ?? '',
-        ]));
+        ]);
     }
 }

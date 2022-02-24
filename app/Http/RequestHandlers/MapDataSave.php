@@ -21,15 +21,14 @@ namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
 use Fisharebest\Webtrees\FlashMessages;
 use Fisharebest\Webtrees\I18N;
+use Fisharebest\Webtrees\Registry;
 use Illuminate\Database\Capsule\Manager as DB;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 use function e;
-use function redirect;
 use function round;
-use function route;
 
 /**
  * Controller for maintaining geographic data.
@@ -102,8 +101,6 @@ class MapDataSave implements RequestHandlerInterface
             FlashMessages::addMessage($message, 'success');
         }
 
-        $url = route(MapDataList::class, ['parent_id' => $parent_id]);
-
-        return redirect($url);
+        return Registry::responseFactory()->redirect(MapDataList::class, ['parent_id' => $parent_id]);
     }
 }

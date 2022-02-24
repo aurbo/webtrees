@@ -19,13 +19,11 @@ declare(strict_types=1);
 
 namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-
-use function redirect;
-use function route;
 
 /**
  * Show anniversaries for events in a given day/month/year.
@@ -47,6 +45,6 @@ class CalendarAction implements RequestHandlerInterface
         $params['tree'] = $tree->name();
         $params['view'] = $view;
 
-        return redirect(route(CalendarPage::class, $params));
+        return Registry::responseFactory()->redirect(CalendarPage::class, $params);
     }
 }

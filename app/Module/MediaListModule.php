@@ -42,7 +42,6 @@ use function array_unshift;
 use function dirname;
 use function max;
 use function min;
-use function redirect;
 use function route;
 
 /**
@@ -152,7 +151,7 @@ class MediaListModule extends AbstractModule implements ModuleListInterface, Req
     {
         $tree = Validator::attributes($request)->tree();
 
-        return redirect($this->listUrl($tree, $request->getQueryParams()));
+        return Registry::responseFactory()->redirectUrl($this->listUrl($tree, $request->getQueryParams()));
     }
 
     /**
@@ -171,7 +170,7 @@ class MediaListModule extends AbstractModule implements ModuleListInterface, Req
 
         // Convert POST requests into GET requests for pretty URLs.
         if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
-            return redirect($this->listUrl($tree, (array) $request->getParsedBody()));
+            return Registry::responseFactory()->redirectUrl($this->listUrl($tree, (array) $request->getParsedBody()));
         }
 
         $params  = $request->getQueryParams();

@@ -47,7 +47,6 @@ use function implode;
 use function in_array;
 use function ob_get_clean;
 use function ob_start;
-use function redirect;
 use function route;
 use function view;
 
@@ -162,7 +161,7 @@ class IndividualListModule extends AbstractModule implements ModuleListInterface
     {
         $tree = Validator::attributes($request)->tree();
 
-        return redirect($this->listUrl($tree, $request->getQueryParams()));
+        return Registry::responseFactory()->redirectUrl($this->listUrl($tree, $request->getQueryParams()));
     }
 
     /**

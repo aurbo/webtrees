@@ -22,14 +22,12 @@ namespace Fisharebest\Webtrees\Http\RequestHandlers;
 use Fisharebest\Webtrees\Auth;
 use Fisharebest\Webtrees\Http\ViewResponseTrait;
 use Fisharebest\Webtrees\Module\ModuleReportInterface;
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Services\ModuleService;
 use Fisharebest\Webtrees\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-
-use function redirect;
-use function route;
 
 /**
  * Get parameters for a report.
@@ -64,7 +62,7 @@ class ReportSetupAction implements RequestHandlerInterface
         $module = $this->module_service->findByName($report);
 
         if (!$module instanceof ModuleReportInterface) {
-            return redirect(route(ReportListPage::class, ['tree' => $tree->name()]));
+            return Registry::responseFactory()->redirect(ReportListPage::class, ['tree' => $tree->name()]);
         }
 
         Auth::checkComponentAccess($module, ModuleReportInterface::class, $tree, $user);
@@ -74,6 +72,6 @@ class ReportSetupAction implements RequestHandlerInterface
         $params['tree']   = $tree->name();
         $params['report'] = $report;
 
-        return redirect(route(ReportGenerate::class, $params));
+        return Registry::responseFactory()->redirect(ReportGenerate::class, $params);
     }
 }

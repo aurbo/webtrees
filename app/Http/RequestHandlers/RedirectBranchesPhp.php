@@ -66,16 +66,14 @@ class RedirectBranchesPhp implements RequestHandlerInterface
         $module      = $this->module_service->findByInterface(BranchesListModule::class)->first();
 
         if ($tree instanceof Tree && $module instanceof BranchesListModule) {
-            $url = route('module', [
+            return Registry::responseFactory()->redirect('module', [
                 'module'      => $module->name(),
                 'action'      => 'Page',
                 'soundex_dm'  => $soundex_dm,
                 'soundex_std' => $soundex_std,
                 'surname'     => $surname,
                 'tree'        => $tree->name(),
-            ]);
-
-            return Registry::responseFactory()->redirectUrl($url, StatusCodeInterface::STATUS_MOVED_PERMANENTLY);
+            ], StatusCodeInterface::STATUS_MOVED_PERMANENTLY);
         }
 
         throw new HttpNotFoundException();

@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -42,13 +43,13 @@ class SearchPhoneticAction implements RequestHandlerInterface
 
         $params = (array) $request->getParsedBody();
 
-        return redirect(route(SearchPhoneticPage::class, [
+        return Registry::responseFactory()->redirect(SearchPhoneticPage::class, [
             'firstname'    => $params['firstname'] ?? '',
             'lastname'     => $params['lastname'] ?? '',
             'place'        => $params['place'] ?? '',
             'search_trees' => $params['search_trees'] ?? [],
             'soundex'      => $params['soundex'] ?? 'Russell',
             'tree'         => $tree->name(),
-        ]));
+        ]);
     }
 }

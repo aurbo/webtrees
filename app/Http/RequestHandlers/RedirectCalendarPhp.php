@@ -64,7 +64,7 @@ class RedirectCalendarPhp implements RequestHandlerInterface
         $tree     = $this->tree_service->all()->get($ged);
 
         if ($tree instanceof Tree) {
-            $url = route(CalendarPage::class, [
+            return Registry::responseFactory()->redirect(CalendarPage::class, [
                 'tree'     => $tree->name(),
                 'view'     => $view,
                 'cal'      => $cal,
@@ -74,9 +74,7 @@ class RedirectCalendarPhp implements RequestHandlerInterface
                 'filterev' => $filterev,
                 'filterof' => $filterof,
                 'filtersx' => $filtersx,
-            ]);
-
-            return Registry::responseFactory()->redirectUrl($url, StatusCodeInterface::STATUS_MOVED_PERMANENTLY);
+            ], StatusCodeInterface::STATUS_MOVED_PERMANENTLY);
         }
 
         throw new HttpNotFoundException();

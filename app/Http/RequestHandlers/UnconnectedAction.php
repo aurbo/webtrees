@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -45,10 +46,10 @@ class UnconnectedAction implements RequestHandlerInterface
         $aliases    = $params['aliases'] ?? '';
         $associates = $params['associates'] ?? '';
 
-        return redirect(route(UnconnectedPage::class, [
+        return Registry::responseFactory()->redirect(UnconnectedPage::class, [
             'aliases'    => $aliases,
             'associates' => $associates,
             'tree'       => $tree->name(),
-        ]));
+        ]);
     }
 }

@@ -30,7 +30,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use function array_keys;
 use function count;
 use function e;
-use function response;
 use function str_repeat;
 use function str_replace;
 use function view;
@@ -75,7 +74,7 @@ class CensusAssistantModule extends AbstractModule
 
         $html = $this->censusTableHeader(new $census());
 
-        return response($html);
+        return Registry::responseFactory()->response($html);
     }
 
     /**
@@ -105,7 +104,7 @@ class CensusAssistantModule extends AbstractModule
             $html = $this->censusTableEmptyRow($census);
         }
 
-        return response($html);
+        return Registry::responseFactory()->response($html);
     }
 
     /**

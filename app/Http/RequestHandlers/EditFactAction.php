@@ -30,9 +30,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-use function ltrim;
-use function redirect;
-
 /**
  * Save an updated GEDCOM fact.
  */
@@ -112,6 +109,6 @@ class EditFactAction implements RequestHandlerInterface
 
         $url = Validator::parsedBody($request)->isLocalUrl()->string('url', $record->url());
 
-        return redirect($url);
+        return Registry::responseFactory()->redirectUrl($url);
     }
 }

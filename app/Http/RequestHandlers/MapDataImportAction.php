@@ -45,7 +45,6 @@ use function fgetcsv;
 use function implode;
 use function is_numeric;
 use function json_decode;
-use function redirect;
 use function rewind;
 use function route;
 use function str_contains;
@@ -107,7 +106,7 @@ class MapDataImportAction implements RequestHandlerInterface
         }
 
         if ($fp === false || $fp === null) {
-            return redirect($url);
+            return Registry::responseFactory()->redirectUrl($url);
         }
 
         $string = stream_get_contents($fp);
@@ -184,6 +183,6 @@ class MapDataImportAction implements RequestHandlerInterface
             'info'
         );
 
-        return redirect($url);
+        return Registry::responseFactory()->redirectUrl($url);
     }
 }

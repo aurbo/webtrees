@@ -44,7 +44,6 @@ use function e;
 use function fclose;
 use function intdiv;
 use function microtime;
-use function response;
 use function route;
 use function version_compare;
 use function view;
@@ -150,7 +149,7 @@ class UpgradeWizardStep implements RequestHandlerInterface
                 return $this->wizardStepCopyAndCleanUp($zip_file, $root_filesystem, $temporary_filesystem);
 
             default:
-                return response('', StatusCodeInterface::STATUS_NO_CONTENT);
+                return Registry::responseFactory()->response('', StatusCodeInterface::STATUS_NO_CONTENT);
         }
     }
 
@@ -173,7 +172,7 @@ class UpgradeWizardStep implements RequestHandlerInterface
         /* I18N: %s is a version number, such as 1.2.3 */
         $alert = I18N::translate('Upgrade to webtrees %s.', e($latest_version));
 
-        return response(view('components/alert-success', [
+        return Registry::responseFactory()->response(view('components/alert-success', [
             'alert' => $alert,
         ]));
     }
@@ -190,7 +189,7 @@ class UpgradeWizardStep implements RequestHandlerInterface
         $root_filesystem->deleteDirectory(self::UPGRADE_FOLDER);
         $root_filesystem->createDirectory(self::UPGRADE_FOLDER);
 
-        return response(view('components/alert-success', [
+        return Registry::responseFactory()->response(view('components/alert-success', [
             'alert' => I18N::translate('The folder %s has been created.', e(self::UPGRADE_FOLDER)),
         ]));
     }
@@ -203,12 +202,12 @@ class UpgradeWizardStep implements RequestHandlerInterface
         $changes = DB::table('change')->where('status', '=', 'pending')->exists();
 
         if ($changes) {
-            return response(view('components/alert-danger', [
+            return Registry::responseFactory()->response(view('components/alert-danger', [
                 'alert' => I18N::translate('You should accept or reject all pending changes before upgrading.'),
             ]), StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR);
         }
 
-        return response(view('components/alert-success', [
+        return Registry::responseFactory()->response(view('components/alert-success', [
             'alert' => I18N::translate('There are no pending changes.'),
         ]));
     }
@@ -228,7 +227,7 @@ class UpgradeWizardStep implements RequestHandlerInterface
         $data_filesystem->writeStream($tree->name() . date('-Y-m-d') . '.ged', $stream);
         fclose($stream);
 
-        return response(view('components/alert-success', [
+        return Registry::responseFactory()->response(view('components/alert-success', [
             'alert' => I18N::translate('The family tree has been exported to %s.', e($filename)),
         ]));
     }
@@ -253,7 +252,7 @@ class UpgradeWizardStep implements RequestHandlerInterface
         $end_time = microtime(true);
         $seconds  = I18N::number($end_time - $start_time, 2);
 
-        return response(view('components/alert-success', [
+        return Registry::responseFactory()->response(view('components/alert-success', [
             'alert' => I18N::translate('%1$s KB were downloaded in %2$s seconds.', $kb, $seconds),
         ]));
     }
@@ -277,7 +276,7 @@ class UpgradeWizardStep implements RequestHandlerInterface
         /* I18N: …from the .ZIP file, %2$s is a (fractional) number of seconds */
         $alert = I18N::plural('%1$s file was extracted in %2$s seconds.', '%1$s files were extracted in %2$s seconds.', $count, I18N::number($count), $seconds);
 
-        return response(view('components/alert-success', [
+        return Registry::responseFactory()->response(view('components/alert-success', [
             'alert' => $alert,
         ]));
     }
@@ -310,7 +309,7 @@ class UpgradeWizardStep implements RequestHandlerInterface
         $alert  = I18N::translate('The upgrade is complete.');
         $button = '<a href="' . e($url) . '" class="btn btn-primary">' . I18N::translate('continue') . '</a>';
 
-        return response(view('components/alert-success', [
+        return Registry::responseFactory()->response(view('components/alert-success', [
             'alert' => $alert . ' ' . $button,
         ]));
     }

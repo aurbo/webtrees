@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Fisharebest\Webtrees\Services;
 
 use Closure;
+use Fisharebest\Webtrees\Registry;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
@@ -106,7 +107,7 @@ class DatatablesService
 
         $data = $data->map($callback)->values()->all();
 
-        return response([
+        return Registry::responseFactory()->response([
             'draw'            => $draw,
             'recordsTotal'    => $recordsTotal,
             'recordsFiltered' => $recordsFiltered,
@@ -176,7 +177,7 @@ class DatatablesService
 
         $data = $data->map($callback)->all();
 
-        return response([
+        return Registry::responseFactory()->response([
             'draw'            => $draw,
             'recordsTotal'    => $recordsTotal,
             'recordsFiltered' => $recordsFiltered,

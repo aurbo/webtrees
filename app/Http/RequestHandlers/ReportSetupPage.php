@@ -33,9 +33,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-use function redirect;
-use function route;
-
 /**
  * Get parameters for a report.
  */
@@ -73,7 +70,7 @@ class ReportSetupPage implements RequestHandlerInterface
         $module = $this->module_service->findByName($report);
 
         if (!$module instanceof ModuleReportInterface) {
-            return redirect(route(ReportListPage::class, ['tree' => $tree->name()]));
+            return Registry::responseFactory()->redirect(ReportListPage::class, ['tree' => $tree->name()]);
         }
 
         Auth::checkComponentAccess($module, ModuleReportInterface::class, $tree, $user);

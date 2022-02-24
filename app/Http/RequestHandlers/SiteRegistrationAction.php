@@ -21,13 +21,11 @@ namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
 use Fisharebest\Webtrees\FlashMessages;
 use Fisharebest\Webtrees\I18N;
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Site;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-
-use function redirect;
-use function route;
 
 /**
  * Edit the site preferences.
@@ -49,8 +47,6 @@ class SiteRegistrationAction implements RequestHandlerInterface
         Site::setPreference('SHOW_REGISTER_CAUTION', $params['SHOW_REGISTER_CAUTION']);
 
         FlashMessages::addMessage(I18N::translate('The website preferences have been updated.'), 'success');
-        $url = route(ControlPanel::class);
-
-        return redirect($url);
+        return Registry::responseFactory()->redirect(ControlPanel::class);
     }
 }

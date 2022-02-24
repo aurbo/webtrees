@@ -44,7 +44,6 @@ use function implode;
 use function intdiv;
 use function is_file;
 use function max;
-use function response;
 use function route;
 use function str_contains;
 use function str_replace;
@@ -146,7 +145,7 @@ class ImportThumbnailsData implements RequestHandlerInterface
                 ];
             });
 
-        return response([
+        return Registry::responseFactory()->response([
             'draw'            => (int) $request->getQueryParams()['draw'],
             'recordsTotal'    => $recordsTotal,
             'recordsFiltered' => $recordsFiltered,

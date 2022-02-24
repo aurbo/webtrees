@@ -34,7 +34,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 use function dirname;
 use function explode;
-use function response;
 use function strlen;
 use function substr;
 
@@ -86,7 +85,7 @@ class ImportThumbnailsAction implements RequestHandlerInterface
         }
 
         if (!$file_exists) {
-            return response([]);
+            return Registry::responseFactory()->response([]);
         }
 
         $media_objects = [];
@@ -146,6 +145,6 @@ class ImportThumbnailsAction implements RequestHandlerInterface
                 break;
         }
 
-        return response([]);
+        return Registry::responseFactory()->response([]);
     }
 }

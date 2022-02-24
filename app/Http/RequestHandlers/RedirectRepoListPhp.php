@@ -58,7 +58,8 @@ class RedirectRepoListPhp implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $ged    = Validator::queryParams($request)->string('ged', Site::getPreference('DEFAULT_GEDCOM'));
+        $query  = $request->getQueryParams();
+        $ged    = $query['ged'] ?? Site::getPreference('DEFAULT_GEDCOM');
         $tree   = $this->tree_service->all()->get($ged);
         $module = $this->module_service->findByInterface(RepositoryListModule::class)->first();
 

@@ -23,13 +23,12 @@ use Fisharebest\Webtrees\Contracts\UserInterface;
 use Fisharebest\Webtrees\FlashMessages;
 use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\Log;
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Services\UserService;
 use Fisharebest\Webtrees\Site;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-
-use function route;
 
 /**
  * Add a user.
@@ -74,13 +73,11 @@ class UserAddAction implements RequestHandlerInterface
         }
 
         if ($errors) {
-            $url = route(UserAddPage::class, [
+            return Registry::responseFactory()->redirect(UserAddPage::class, [
                 'email'     => $email,
                 'real_name' => $real_name,
                 'username'  => $username,
             ]);
-
-            return redirect($url);
         }
 
         $new_user = $this->user_service->create($username, $real_name, $email, $password);
@@ -93,10 +90,8 @@ class UserAddAction implements RequestHandlerInterface
 
         Log::addAuthenticationLog('User ->' . $username . '<- created');
 
-        $url = route(UserEditPage::class, [
+        return Registry::responseFactory()->redirect(UserEditPage::class, [
             'user_id' => $new_user->id(),
         ]);
-
-        return redirect($url);
     }
 }

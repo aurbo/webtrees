@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
+use Fisharebest\Webtrees\Registry;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -37,7 +38,7 @@ class SiteLogsAction implements RequestHandlerInterface
     {
         $params = (array) $request->getParsedBody();
 
-        return redirect(route(SiteLogsPage::class, [
+        return Registry::responseFactory()->redirect(SiteLogsPage::class, [
             'tree'     => $params['tree'],
             'from'     => $params['from'] ?? '',
             'to'       => $params['to'] ?? '',
@@ -45,6 +46,6 @@ class SiteLogsAction implements RequestHandlerInterface
             'text'     => $params['text'] ?? '',
             'ip'       => $params['ip'] ?? '',
             'username' => $params['username'] ?? '',
-        ]));
+        ]);
     }
 }

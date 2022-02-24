@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Fisharebest\Webtrees\Http\RequestHandlers;
 
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -42,7 +43,7 @@ class SearchGeneralAction implements RequestHandlerInterface
 
         $params = (array) $request->getParsedBody();
 
-        return redirect(route(SearchGeneralPage::class, [
+        return Registry::responseFactory()->redirect(SearchGeneralPage::class, [
             'query'               => $params['query'] ?? '',
             'search_families'     => (bool) ($params['search_families'] ?? false),
             'search_individuals'  => (bool) ($params['search_individuals'] ?? false),
@@ -52,6 +53,6 @@ class SearchGeneralAction implements RequestHandlerInterface
             'search_sources'      => (bool) ($params['search_sources'] ?? false),
             'search_trees'        => $params['search_trees'] ?? [],
             'tree'                => $tree->name(),
-        ]));
+        ]);
     }
 }

@@ -23,6 +23,7 @@ use Fisharebest\Webtrees\Auth;
 use Fisharebest\Webtrees\Http\Exceptions\HttpNotFoundException;
 use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\Individual;
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Statistics;
 use Fisharebest\Webtrees\Validator;
 use Psr\Http\Message\ResponseInterface;
@@ -249,26 +250,26 @@ class StatisticsChartModule extends AbstractModule implements ModuleChartInterfa
 
         switch ($x_axis_type) {
             case self::X_AXIS_INDIVIDUAL_MAP:
-                return response($statistics->chartDistribution(
+                return Registry::responseFactory()->response($statistics->chartDistribution(
                     $params['chart_shows'],
                     $params['chart_type'],
                     $params['SURN']
                 ));
 
             case self::X_AXIS_BIRTH_MAP:
-                return response($statistics->chartDistribution(
+                return Registry::responseFactory()->response($statistics->chartDistribution(
                     $params['chart_shows'],
                     'birth_distribution_chart'
                 ));
 
             case self::X_AXIS_DEATH_MAP:
-                return response($statistics->chartDistribution(
+                return Registry::responseFactory()->response($statistics->chartDistribution(
                     $params['chart_shows'],
                     'death_distribution_chart'
                 ));
 
             case self::X_AXIS_MARRIAGE_MAP:
-                return response($statistics->chartDistribution(
+                return Registry::responseFactory()->response($statistics->chartDistribution(
                     $params['chart_shows'],
                     'marriage_distribution_chart'
                 ));
@@ -320,7 +321,7 @@ class StatisticsChartModule extends AbstractModule implements ModuleChartInterfa
                         throw new HttpNotFoundException();
                 }
 
-                return response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
+                return Registry::responseFactory()->response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
 
             case self::X_AXIS_DEATH_MONTH:
                 $chart_title  = I18N::translate('Month of death');
@@ -369,7 +370,7 @@ class StatisticsChartModule extends AbstractModule implements ModuleChartInterfa
                         throw new HttpNotFoundException();
                 }
 
-                return response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
+                return Registry::responseFactory()->response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
 
             case self::X_AXIS_MARRIAGE_MONTH:
                 $chart_title  = I18N::translate('Month of marriage');
@@ -411,7 +412,7 @@ class StatisticsChartModule extends AbstractModule implements ModuleChartInterfa
                         throw new HttpNotFoundException();
                 }
 
-                return response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
+                return Registry::responseFactory()->response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
 
             case self::X_AXIS_FIRST_CHILD_MONTH:
                 $chart_title  = I18N::translate('Month of birth of first child in a relation');
@@ -460,7 +461,7 @@ class StatisticsChartModule extends AbstractModule implements ModuleChartInterfa
                         throw new HttpNotFoundException();
                 }
 
-                return response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
+                return Registry::responseFactory()->response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
 
             case self::X_AXIS_FIRST_MARRIAGE_MONTH:
                 $chart_title  = I18N::translate('Month of first marriage');
@@ -512,7 +513,7 @@ class StatisticsChartModule extends AbstractModule implements ModuleChartInterfa
                         throw new HttpNotFoundException();
                 }
 
-                return response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
+                return Registry::responseFactory()->response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
 
             case self::X_AXIS_AGE_AT_DEATH:
                 $chart_title    = I18N::translate('Average age at death');
@@ -574,7 +575,7 @@ class StatisticsChartModule extends AbstractModule implements ModuleChartInterfa
                         throw new HttpNotFoundException();
                 }
 
-                return response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
+                return Registry::responseFactory()->response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
 
             case self::X_AXIS_AGE_AT_MARRIAGE:
                 $chart_title    = I18N::translate('Age in year of marriage');
@@ -635,7 +636,7 @@ class StatisticsChartModule extends AbstractModule implements ModuleChartInterfa
                         throw new HttpNotFoundException();
                 }
 
-                return response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
+                return Registry::responseFactory()->response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
 
             case self::X_AXIS_AGE_AT_FIRST_MARRIAGE:
                 $chart_title    = I18N::translate('Age in year of first marriage');
@@ -708,7 +709,7 @@ class StatisticsChartModule extends AbstractModule implements ModuleChartInterfa
                         throw new HttpNotFoundException();
                 }
 
-                return response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
+                return Registry::responseFactory()->response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
 
             case self::X_AXIS_NUMBER_OF_CHILDREN:
                 $chart_title  = I18N::translate('Number of children');
@@ -750,7 +751,7 @@ class StatisticsChartModule extends AbstractModule implements ModuleChartInterfa
                         throw new HttpNotFoundException();
                 }
 
-                return response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
+                return Registry::responseFactory()->response($this->myPlot($chart_title, $x_axis, $x_axis_title, $ydata, $y_axis_title, $z_axis, $y_axis_type));
 
             default:
                 throw new HttpNotFoundException();
